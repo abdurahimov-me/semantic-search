@@ -1,10 +1,14 @@
-from ..stubs.log import log_pb2, log_pb2_grpc
-from config.db import db_helper
-from models import Log
+import logging
 
+import grpc
 from google.protobuf.json_format import MessageToDict
 from google.protobuf.timestamp_pb2 import Timestamp
-import grpc
+
+from config.db import db_helper
+from models import Log
+from ..stubs.log import log_pb2, log_pb2_grpc
+
+logger = logging.getLogger(__name__)
 
 
 class LogServicer(log_pb2_grpc.LogServiceServicer):
@@ -45,6 +49,7 @@ class LogServicer(log_pb2_grpc.LogServiceServicer):
                 )
 
         except Exception as e:
+            logger.error(f'Error from CreateLog: {e}')
             return await context.abort(
                 grpc.StatusCode.INTERNAL,
                 str(e)
