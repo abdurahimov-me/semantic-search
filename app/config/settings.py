@@ -38,7 +38,6 @@ class APPSettings(EnvReader):
     TIME_ZONE: str = 'Asia/Tashkent'
     SERVER_HOST: str = 'localhost'
     DEBUG: bool = True
-    GRPC_HOST: str
     GRPC_PORT: int
 
 

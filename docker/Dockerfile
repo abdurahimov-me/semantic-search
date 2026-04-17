@@ -23,5 +23,6 @@ EXPOSE 8000
 EXPOSE 50051
 
 RUN chmod +x /scripts/*
+RUN mkdir -p /var/log/app /var/log/supervisor
 
 ENTRYPOINT ["/scripts/entrypoint.sh"]

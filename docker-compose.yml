@@ -51,6 +51,8 @@ services:
       dockerfile: ./docker/Dockerfile
     container_name: ${PROJECT_NAME}_app
     entrypoint: /scripts/entrypoint.sh
+    volumes:
+      - ./app/logs:/var/log/app
     networks:
       - local
     ports:
