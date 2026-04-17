@@ -1,8 +1,15 @@
 import asyncio
+
 import grpc
+
 from config.settings import APP_SETTINGS
-from resources.integrations.grpc.services import *
-from config import settings  # o'zingda qayerda bo'lsa
+from resources.integrations.grpc.servicers import (
+    log,
+)
+from resources.integrations.grpc.stubs import (
+    log,
+)
+
 
 async def serve():
     server = grpc.aio.server(
@@ -18,10 +25,9 @@ async def serve():
         ]
     )
 
-    # Serviceni ulash
-    # user_pb2_grpc.add_UserServiceServicer_to_server(
-    #     UserServicer(), server
-    # )
+    log.log_pb2_grpc.add_LogServiceServicer_to_server(
+        log.LogServicer(), server
+    )
 
     server.add_insecure_port(f"[::]:{APP_SETTINGS.GRPC_PORT}")
 
