@@ -26,7 +26,7 @@ services:
     env_file:
       - .env
     environment:
-      - POSTGRESQL_HOST=hr_chat_db
+      - POSTGRESQL_HOST=${PROJECT_NAME}_db
       - POSTGRESQL_PORT_NUMBER=5432
       - POSTGRESQL_USERNAME=${DB_USER}
       - POSTGRESQL_PASSWORD=${DB_PASSWORD}
@@ -61,7 +61,6 @@ services:
       - DB_HOST=${PROJECT_NAME}_pgbouncer
       - DB_PORT=6432
     depends_on:
-      - redis
       - db
 
 
@@ -74,7 +73,7 @@ services:
     networks:
       - local
     ports:
-      - "127.0.0.1:8066:8001"
+      - "127.0.0.1:8022:8001"
     volumes:
       - .:/app
     env_file:
@@ -85,7 +84,6 @@ services:
 
 volumes:
   postgres_data: { }
-  redis_data: { }
 
 
 networks:

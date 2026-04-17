@@ -1,1 +1,1 @@
-"hr_chat" "hr_chat"
+"log" "log"
