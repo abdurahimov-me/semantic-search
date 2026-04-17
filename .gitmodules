@@ -1,3 +1,0 @@
-[submodule "app/integrations/grpc/proto"]
-	path = app/integrations/grpc/proto
-	url = https://github.com/imb-tech/hr-grpc-proto.git
