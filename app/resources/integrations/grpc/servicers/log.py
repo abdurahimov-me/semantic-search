@@ -1,0 +1,51 @@
+from ..stubs.log import log_pb2, log_pb2_grpc
+from config.db import db_helper
+from models import Log
+
+from google.protobuf.json_format import MessageToDict
+from google.protobuf.timestamp_pb2 import Timestamp
+import grpc
+
+
+class LogServicer(log_pb2_grpc.LogServiceServicer):
+
+    async def CreateLog(self, request, context) -> log_pb2.LogResponse:
+        try:
+            async with db_helper.session() as session:
+                log = Log(
+                    instance_id=request.instance_id,
+                    model=request.model,
+                    executor_id=request.executor_id,
+                    commet=request.comment,
+                    action=request.action,
+                    before=MessageToDict(request.before) if request.before else {},
+                    after=MessageToDict(request.after) if request.after else {},
+                    executor_data=MessageToDict(request.executor_data) if request.executor_data else {},
+                )
+
+                session.add(log)
+                await session.commit()
+                await session.refresh(log)
+
+                # timestamp convert
+                ts = Timestamp()
+                ts.FromDatetime(log.created_at)
+
+                return log_pb2.LogResponse(
+                    id=log.id,
+                    model=log.model,
+                    instance_id=log.instance_id,
+                    executor_id=log.executor_id,
+                    comment=log.comment or "",
+                    action=log.action,
+                    before=MessageToDict(request.before) if request.before else {},
+                    after=MessageToDict(request.after) if request.after else {},
+                    executor_data=MessageToDict(request.executor_data) if request.executor_data else {},
+                    created_at=ts
+                )
+
+        except Exception as e:
+            return await context.abort(
+                grpc.StatusCode.INTERNAL,
+                str(e)
+            )

@@ -19,8 +19,9 @@ class Log(BaseModel):
         sa.String(255),
         index=True,
     )
-    executor: Mapped[str] = mapped_column(
+    executor_id: Mapped[str] = mapped_column(
         sa.String(255),
+        index=True,
     )
     before: Mapped[dict] = mapped_column(
         JSONB,
@@ -31,4 +32,15 @@ class Log(BaseModel):
         JSONB,
         nullable=True,
         default=dict(),
+    )
+    executor_data: Mapped[dict] = mapped_column(
+        JSONB,
+        nullable=True,
+    )
+    comment: Mapped[str] = mapped_column(
+        sa.Text(),
+        nullable=True,
+    )
+    action: Mapped[int] = mapped_column(
+        sa.SmallInteger(),
     )

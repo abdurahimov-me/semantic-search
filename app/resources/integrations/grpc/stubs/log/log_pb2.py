@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tlog.proto\x12\x03log\x1a\x1cgoogle/protobuf/struct.proto\"\x99\x01\n\x10LogCreateRequest\x12\r\n\x05model\x18\x01 \x01(\x05\x12\x13\n\x0binstance_id\x18\x02 \x01(\t\x12\x10\n\x08\x65xecutor\x18\x03 \x01(\t\x12\'\n\x06\x62\x65\x66ore\x18\x04 \x01(\x0b\x32\x17.google.protobuf.Struct\x12&\n\x05\x61\x66ter\x18\x05 \x01(\x0b\x32\x17.google.protobuf.Struct\"\xb4\x01\n\x0bLogResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05model\x18\x02 \x01(\x05\x12\x13\n\x0binstance_id\x18\x03 \x01(\t\x12\x10\n\x08\x65xecutor\x18\x04 \x01(\t\x12\'\n\x06\x62\x65\x66ore\x18\x05 \x01(\x0b\x32\x17.google.protobuf.Struct\x12&\n\x05\x61\x66ter\x18\x06 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x12\n\ncreated_at\x18\x07 \x01(\t2B\n\nLogService\x12\x34\n\tCreateLog\x12\x15.log.LogCreateRequest\x1a\x10.log.LogResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tlog.proto\x12\x03log\x1a\x1cgoogle/protobuf/struct.proto\"\xed\x01\n\x10LogCreateRequest\x12\r\n\x05model\x18\x01 \x01(\x05\x12\x13\n\x0binstance_id\x18\x02 \x01(\t\x12\x13\n\x0b\x65xecutor_id\x18\x03 \x01(\t\x12\x0f\n\x07\x63omment\x18\x04 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x05 \x01(\x05\x12\'\n\x06\x62\x65\x66ore\x18\x06 \x01(\x0b\x32\x17.google.protobuf.Struct\x12&\n\x05\x61\x66ter\x18\x07 \x01(\x0b\x32\x17.google.protobuf.Struct\x12.\n\rexecutor_data\x18\x08 \x01(\x0b\x32\x17.google.protobuf.Struct\"\x88\x02\n\x0bLogResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05model\x18\x02 \x01(\x05\x12\x13\n\x0binstance_id\x18\x03 \x01(\t\x12\x13\n\x0b\x65xecutor_id\x18\x04 \x01(\t\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x06 \x01(\x05\x12\'\n\x06\x62\x65\x66ore\x18\x07 \x01(\x0b\x32\x17.google.protobuf.Struct\x12&\n\x05\x61\x66ter\x18\x08 \x01(\x0b\x32\x17.google.protobuf.Struct\x12.\n\rexecutor_data\x18\t \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x12\n\ncreated_at\x18\n \x01(\t2B\n\nLogService\x12\x34\n\tCreateLog\x12\x15.log.LogCreateRequest\x1a\x10.log.LogResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,9 +33,9 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'log_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_LOGCREATEREQUEST']._serialized_start=49
-  _globals['_LOGCREATEREQUEST']._serialized_end=202
-  _globals['_LOGRESPONSE']._serialized_start=205
-  _globals['_LOGRESPONSE']._serialized_end=385
-  _globals['_LOGSERVICE']._serialized_start=387
-  _globals['_LOGSERVICE']._serialized_end=453
+  _globals['_LOGCREATEREQUEST']._serialized_end=286
+  _globals['_LOGRESPONSE']._serialized_start=289
+  _globals['_LOGRESPONSE']._serialized_end=553
+  _globals['_LOGSERVICE']._serialized_start=555
+  _globals['_LOGSERVICE']._serialized_end=621
 # @@protoc_insertion_point(module_scope)
