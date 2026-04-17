@@ -4,11 +4,9 @@ import grpc
 
 from config.settings import APP_SETTINGS
 from resources.integrations.grpc.servicers import (
-    log,
+    LogServicer,
 )
-from resources.integrations.grpc.stubs import (
-    log,
-)
+from resources.integrations.grpc.stubs.log import log_pb2_grpc
 
 
 async def serve():
@@ -25,8 +23,8 @@ async def serve():
         ]
     )
 
-    log.log_pb2_grpc.add_LogServiceServicer_to_server(
-        log.LogServicer(), server
+    log_pb2_grpc.add_LogServiceServicer_to_server(
+        LogServicer(), server
     )
 
     server.add_insecure_port(f"[::]:{APP_SETTINGS.GRPC_PORT}")
