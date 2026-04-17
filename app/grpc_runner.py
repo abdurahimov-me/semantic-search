@@ -1,2 +1,2 @@
-from integrations.grpc.services import *
+from resources.integrations.grpc.services import *
 
