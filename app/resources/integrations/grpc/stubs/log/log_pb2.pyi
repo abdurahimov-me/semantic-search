@@ -24,11 +24,13 @@ class LogCreateRequest(_message.Message):
     MODEL_FIELD_NUMBER: _builtins.int
     INSTANCE_ID_FIELD_NUMBER: _builtins.int
     EXECUTOR_FIELD_NUMBER: _builtins.int
+    COMMENT_FIELD_NUMBER: _builtins.int
     BEFORE_FIELD_NUMBER: _builtins.int
     AFTER_FIELD_NUMBER: _builtins.int
     model: _builtins.int
     instance_id: _builtins.str
     executor: _builtins.str
+    comment: _builtins.str
     @_builtins.property
     def before(self) -> _struct_pb2.Struct: ...
     @_builtins.property
@@ -39,12 +41,13 @@ class LogCreateRequest(_message.Message):
         model: _builtins.int = ...,
         instance_id: _builtins.str = ...,
         executor: _builtins.str = ...,
+        comment: _builtins.str = ...,
         before: _struct_pb2.Struct | None = ...,
         after: _struct_pb2.Struct | None = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before", "executor", b"executor", "instance_id", b"instance_id", "model", b"model"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before", "comment", b"comment", "executor", b"executor", "instance_id", b"instance_id", "model", b"model"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___LogCreateRequest: _TypeAlias = LogCreateRequest  # noqa: Y015
@@ -57,6 +60,7 @@ class LogResponse(_message.Message):
     MODEL_FIELD_NUMBER: _builtins.int
     INSTANCE_ID_FIELD_NUMBER: _builtins.int
     EXECUTOR_FIELD_NUMBER: _builtins.int
+    COMMENT_FIELD_NUMBER: _builtins.int
     BEFORE_FIELD_NUMBER: _builtins.int
     AFTER_FIELD_NUMBER: _builtins.int
     CREATED_AT_FIELD_NUMBER: _builtins.int
@@ -64,6 +68,7 @@ class LogResponse(_message.Message):
     model: _builtins.int
     instance_id: _builtins.str
     executor: _builtins.str
+    comment: _builtins.str
     created_at: _builtins.str
     @_builtins.property
     def before(self) -> _struct_pb2.Struct: ...
@@ -76,13 +81,14 @@ class LogResponse(_message.Message):
         model: _builtins.int = ...,
         instance_id: _builtins.str = ...,
         executor: _builtins.str = ...,
+        comment: _builtins.str = ...,
         before: _struct_pb2.Struct | None = ...,
         after: _struct_pb2.Struct | None = ...,
         created_at: _builtins.str = ...,
     ) -> None: ...
     _HasFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before"]  # noqa: Y015
     def HasField(self, field_name: _HasFieldArgType) -> _builtins.bool: ...
-    _ClearFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before", "created_at", b"created_at", "executor", b"executor", "id", b"id", "instance_id", b"instance_id", "model", b"model"]  # noqa: Y015
+    _ClearFieldArgType: _TypeAlias = _typing.Literal["after", b"after", "before", b"before", "comment", b"comment", "created_at", b"created_at", "executor", b"executor", "id", b"id", "instance_id", b"instance_id", "model", b"model"]  # noqa: Y015
     def ClearField(self, field_name: _ClearFieldArgType) -> None: ...
 
 Global___LogResponse: _TypeAlias = LogResponse  # noqa: Y015
