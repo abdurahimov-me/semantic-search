@@ -9,7 +9,6 @@ from typing import Optional
 
 import grpc.aio
 
-from integrations.grpc.stubs.user import user_pb2_grpc as user_grpc
 from config.settings import APP_SETTINGS
 
 
@@ -32,10 +31,6 @@ class GRPCClient:
         if self._channel is None:
             raise RuntimeError("gRPC client ulanmagan")
         return self._channel
-
-    @property
-    def user(self) -> user_grpc.UserServiceStub:
-        return user_grpc.UserServiceStub(self.channel)
 
 
 grpc_client = GRPCClient(
