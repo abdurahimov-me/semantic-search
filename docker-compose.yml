@@ -64,7 +64,7 @@ services:
       - DB_HOST=${PROJECT_NAME}_pgbouncer
       - DB_PORT=6432
     depends_on:
-      - db
+      - pgbouncer
 
 
 #  admin:
