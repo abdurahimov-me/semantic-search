@@ -1,30 +1,16 @@
-from utils.customs import IntEnum, StrEnum
+from utils.customs import IntEnum
 
 
-class ConversationType(IntEnum):
-    DIRECT = 1
-    GROUP = 2
+class LogModel(IntEnum):
+    ORDER = 1
+    USER = 2
+    CLIENT = 3
+    OFFER = 5
 
 
-class MemberType(IntEnum):
-    ADMIN = 1
-    MEMBER = 2
-    OWNER = 3
-
-
-class FileType(IntEnum):
-    PHOTO = 1
-    AUDIO = 2
-    DOCUMENT = 3
-    VIDEO = 4
-
-
-class MessageType(IntEnum):
-    TEXT = 1
-    PHOTO = 2
-    AUDIO = 3
-    DOCUMENT = 4
-    VIDEO = 5
-    EVENT = 6
-
-
+class LogAction(IntEnum):
+    CREATE = 1
+    UPDATE = 2
+    DELETE = 3
+    LOGIN = 4
+    LOGOUT = 5

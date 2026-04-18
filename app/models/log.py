@@ -4,7 +4,7 @@ __all__ = (
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
-
+from utils.customs.fields import IntEnumField
 from .base import BaseModel
 
 
@@ -43,4 +43,5 @@ class Log(BaseModel):
     )
     action: Mapped[int] = mapped_column(
         sa.SmallInteger(),
+        index=True,
     )
