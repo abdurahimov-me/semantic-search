@@ -21,7 +21,7 @@ class LogServicer(log_pb2_grpc.LogServiceServicer):
                     instance_id=request.instance_id,
                     model=request.model,
                     executor_id=request.executor_id,
-                    commet=request.comment,
+                    comment=request.comment,
                     action=request.action,
                     before=MessageToDict(request.before) if request.before else {},
                     after=MessageToDict(request.after) if request.after else {},
