@@ -6,13 +6,17 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 from utils.customs.fields import IntEnumField
 from .base import BaseModel
-
+from resources.enums import LogAction, LogModel
 
 class Log(BaseModel):
     __tablename__ = 'logs'
     updated_at = None
     model: Mapped[int] = mapped_column(
-        sa.SmallInteger(),
+        IntEnumField(LogModel),
+        index=True,
+    )
+    action: Mapped[int] = mapped_column(
+        IntEnumField(LogAction),
         index=True,
     )
     instance_id: Mapped[str] = mapped_column(
@@ -40,8 +44,4 @@ class Log(BaseModel):
     comment: Mapped[str] = mapped_column(
         sa.Text(),
         nullable=True,
-    )
-    action: Mapped[int] = mapped_column(
-        sa.SmallInteger(),
-        index=True,
     )

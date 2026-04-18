@@ -63,6 +63,7 @@ class BaseModel(Base):
         default=utcnow,
         nullable=False,
         index=True,
+        server_default=sa.func.now(),
     )
     updated_at: Mapped[Optional[sa.DateTime]] = mapped_column(
         sa.DateTime(timezone=True),
