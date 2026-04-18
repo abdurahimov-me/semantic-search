@@ -33,8 +33,6 @@ class LogServicer(log_pb2_grpc.LogServiceServicer):
                 await session.refresh(log)
 
                 # timestamp convert
-                ts = Timestamp()
-                ts.FromDatetime(log.created_at)
 
                 return log_pb2.LogResponse(
                     id=log.id,
@@ -46,7 +44,7 @@ class LogServicer(log_pb2_grpc.LogServiceServicer):
                     before=dict_to_struct(log.before),
                     after=dict_to_struct(log.after),
                     executor_data=dict_to_struct(log.executor_data),
-                    created_at=ts
+                    created_at=str(log.created_at),
                 )
 
         except Exception as e:
