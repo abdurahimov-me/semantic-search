@@ -67,23 +67,23 @@ services:
       - pgbouncer
 
 
-#  admin:
-#    build:
-#      context: ./admin
-#      dockerfile: Dockerfile
-#    container_name: ${PROJECT_NAME}_admin
-#    entrypoint: ./admin/entrypoint.sh
-#    networks:
-#      - local
-#    ports:
-#      - "127.0.0.1:8022:8001"
-#    volumes:
-#      - .:/app
-#    env_file:
-#      - .env
-#    environment:
-#      - DB_HOST=${PROJECT_NAME}_pgbouncer
-#      - DB_PORT=6432
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: ${PROJECT_NAME}_admin
+    entrypoint: ./admin/entrypoint.sh
+    networks:
+      - local
+    ports:
+      - "127.0.0.1:8022:8001"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=${PROJECT_NAME}_pgbouncer
+      - DB_PORT=6432
 
 volumes:
   postgres_data: { }
