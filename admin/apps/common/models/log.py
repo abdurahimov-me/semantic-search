@@ -1,3 +1,6 @@
+__all__ = (
+    "Log",
+)
 from django.db import models
 
 from .base import BaseModel
