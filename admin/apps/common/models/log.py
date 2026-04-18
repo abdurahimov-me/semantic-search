@@ -9,8 +9,8 @@ from .base import BaseModel
 class Log(BaseModel):
     updated_at = None
 
-    model = models.SmallAutoField()
-    action = models.SmallAutoField()
+    model = models.SmallIntegerField()
+    action = models.SmallIntegerField()
     instance_id = models.CharField(max_length=255)
     executor_id = models.CharField(max_length=255)
     before = models.JSONField(default=dict, null=True, blank=True)
