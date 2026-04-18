@@ -36,3 +36,10 @@ class Log(BaseModel):
 
     class Meta:
         db_table = 'logs'
+
+
+    @property
+    def executor(self):
+        if isinstance(self.executor_data, dict):
+            return f"{self.executor_id} {self.executor_data.get('last_name')}-{self.executor_data.get('first_name')}"
+        return self.executor_id
