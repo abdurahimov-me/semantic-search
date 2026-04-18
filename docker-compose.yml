@@ -3,6 +3,7 @@ services:
   db:
     image: postgres:15
     container_name: ${PROJECT_NAME}_db
+    restart: always
     networks:
       - local
     env_file:
@@ -90,5 +91,5 @@ volumes:
 
 networks:
   local:
-    name: hr_shared_net
+    name: logistics_shared_net
     external: true
