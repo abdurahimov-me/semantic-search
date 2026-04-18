@@ -76,7 +76,7 @@ services:
     networks:
       - local
     ports:
-      - "127.0.0.1:8022:8001"
+      - "127.0.0.1:8052:8001"
     volumes:
       - .:/app
     env_file:
