@@ -1,7 +1,7 @@
 django
 psycopg2-binary
 python-environ
-django-unfold
+django-jazzmin
 requests
 python-dotenv
 pillow
