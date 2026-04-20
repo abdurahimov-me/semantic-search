@@ -26,11 +26,9 @@ class BaseHTTPService:
             self,
             request: Request,
             db: AsyncSession = None,
-            payload: Payload = None,
     ):
         self.request: Request = request
         self.db: 'AsyncSession' = db
-        self.payload: 'Payload' = payload
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -87,11 +85,6 @@ class BaseHTTPService:
 
         raise self.error(f"{stmt.__name__} object does not exist")
 
-    async def get_user(self, rais_exception=False, **kwargs) -> Optional[User]:
-        u = await User.repo.db_first(self.db, user_id=self.payload.user_id, tenant=self.payload.tenant, **kwargs)
-        if u is None and rais_exception:
-            raise self.error("User does not exist")
-        return u
 
     @classmethod
     def __get_parameters(cls, fields):
