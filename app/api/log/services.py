@@ -17,7 +17,7 @@ class LogService(BaseHTTPService):
             Log.after,
             Log.executor_data,
             Log.comment,
-        )
+        ).order_by(Log.id.desc())
         data = await apaginate(self.db, stmt)
         return data
 
