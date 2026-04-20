@@ -7,8 +7,6 @@ from sqlalchemy import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.db import get_db, db_helper
-from models import User
-from utils import Payload
 from .decorators import permission
 from ..depends.current_payload import get_token_payload_or_none
 
@@ -16,7 +14,6 @@ T = TypeVar('T', bound='BaseService')
 
 ARGS_TYPE = {
     'db': Annotated[AsyncSession, Depends(get_db)],
-    'payload': Annotated[Payload, Depends(get_token_payload_or_none)],
 }
 
 
