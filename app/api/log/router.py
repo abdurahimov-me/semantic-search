@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+from resources.enums import LogModel, LogAction
 from utils.pagination import Page
 from . import services, schemas
 
@@ -11,6 +12,32 @@ router = APIRouter(
 
 @router.get(
     '/',
+    response_model=Page[schemas.LogSchema]
+)
+async def get_logs(
+        service: services.LogService.annotated("db")
+):
+    return await service.get_logs()
+
+
+@router.get(
+    '/models',
+)
+async def get_logs(
+):
+    return LogModel.as_dict_list()
+
+
+@router.get(
+    '/actions',
+)
+async def get_logs(
+):
+    return LogAction.as_dict_list()
+
+
+@router.get(
+    '/users',
     response_model=Page[schemas.LogSchema]
 )
 async def get_logs(
