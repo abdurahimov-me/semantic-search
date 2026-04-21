@@ -1,6 +1,8 @@
 from fastapi import APIRouter
+from fastapi_filter import FilterDepends
 
 from resources.enums import LogModel, LogAction
+from resources.filters import LogFilter
 from utils.pagination import Page
 from . import services, schemas
 
@@ -15,7 +17,8 @@ router = APIRouter(
     response_model=Page[schemas.LogSchema]
 )
 async def get_logs(
-        service: services.LogService.annotated("db")
+        service: services.LogService.annotated("db"),
+        user_filter: LogFilter = FilterDepends(LogFilter)
 ):
     return await service.get_logs()
 
