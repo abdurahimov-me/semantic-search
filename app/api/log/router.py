@@ -1,3 +1,5 @@
+import typing as t
+
 from fastapi import APIRouter
 from fastapi_filter import FilterDepends
 
@@ -41,7 +43,7 @@ async def get_logs(
 
 @router.get(
     '/users/',
-    response_model=Page[schemas.LogSchema]
+    response_model=t.List[schemas.UserSchema]
 )
 async def get_logs(
         service: services.LogService.annotated("db")
