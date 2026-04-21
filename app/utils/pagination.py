@@ -19,5 +19,6 @@ Page = CustomizedPage[
     UseFieldsAliases(
         items="results",
         total="count",
+        pages="total_pages",
     ),
 ]
