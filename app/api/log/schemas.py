@@ -2,6 +2,8 @@ import typing as t
 
 from pydantic import BaseModel
 
+from utils.customs import DateTime
+
 
 class LogSchema(BaseModel):
     id: int
@@ -13,6 +15,7 @@ class LogSchema(BaseModel):
     after: t.Optional[dict]
     executor_data: t.Optional[dict]
     comment: t.Optional[str]
+    created_at: DateTime
 
     class Config:
         from_attributes = True
