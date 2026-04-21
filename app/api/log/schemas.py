@@ -19,3 +19,11 @@ class LogSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class UserSchema(BaseModel):
+    id: str
+    executor_data: t.Optional[dict]
+
+    class Config:
+        from_attributes = True

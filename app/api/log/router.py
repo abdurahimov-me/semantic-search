@@ -46,4 +46,4 @@ async def get_logs(
 async def get_logs(
         service: services.LogService.annotated("db")
 ):
-    return []
+    return await service.get_users()

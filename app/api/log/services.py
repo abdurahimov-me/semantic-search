@@ -26,3 +26,15 @@ class LogService(BaseHTTPService):
 
         data = await apaginate(self.db, stmt, unique=False)
         return data
+
+
+    async def get_users(self):
+        stmt = (
+            sa.select(
+                Log.executor_id.label("id"),
+                Log.executor_data,
+            )
+            .distinct(Log.executor_id)
+            .order_by(Log.executor_id)
+        )
+        return (await self.execute(stmt)).mappings().all()
