@@ -8,7 +8,7 @@ T = TypeVar("T")
 
 
 class Params(FastAPIParams):
-    size: int = Query(20, ge=1, le=500)
+    size: int = Query(25, ge=1, le=500, alias="page_size")
     page: int = Query(1, ge=1)
 
 
