@@ -1,11 +1,14 @@
-from resources.services.http import BaseHTTPService
-from models import Log
 import sqlalchemy as sa
 from fastapi_pagination.ext.sqlalchemy import apaginate
 
+from models import Log
+from resources.filters import LogFilter
+from resources.services.http import BaseHTTPService
+
+
 class LogService(BaseHTTPService):
 
-    async def get_logs(self):
+    async def get_logs(self, log_filter: LogFilter):
         stmt = sa.select(
             Log.id,
             Log.created_at,
@@ -17,9 +20,9 @@ class LogService(BaseHTTPService):
             Log.after,
             Log.executor_data,
             Log.comment,
-        ).order_by(Log.id.desc())
+        )
+
+        stmt = log_filter.filter(stmt).order_by(Log.id.desc())
+
         data = await apaginate(self.db, stmt, unique=False)
         return data
-
-
-

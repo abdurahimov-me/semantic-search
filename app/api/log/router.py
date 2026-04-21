@@ -18,9 +18,9 @@ router = APIRouter(
 )
 async def get_logs(
         service: services.LogService.annotated("db"),
-        user_filter: LogFilter = FilterDepends(LogFilter)
+        log_filter: LogFilter = FilterDepends(LogFilter)
 ):
-    return await service.get_logs()
+    return await service.get_logs(log_filter)
 
 
 @router.get(
@@ -46,4 +46,4 @@ async def get_logs(
 async def get_logs(
         service: services.LogService.annotated("db")
 ):
-    return await service.get_logs()
+    return []
