@@ -2,10 +2,13 @@ from typing import Optional
 from models import Log
 from fastapi_filter.contrib.sqlalchemy import Filter
 
+from resources.enums import LogModel, LogAction
+
+
 
 class LogFilter(Filter):
-    model: Optional[str] = None
-    action: Optional[str] = None
+    model: Optional[LogModel] = None
+    action: Optional[LogAction] = None
     instance_id: Optional[str] = None
 
 
