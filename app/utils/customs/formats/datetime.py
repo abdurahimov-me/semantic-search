@@ -2,7 +2,7 @@ from datetime import datetime, date
 from typing import Tuple, Literal
 from zoneinfo import ZoneInfo
 
-from config import APP_SETTINGS
+from config.settings import APP_SETTINGS
 from .base import BaseFormat
 
 
@@ -40,7 +40,11 @@ class BaseDatetime(BaseFormat):
 
 
 class DateTime(BaseDatetime):
-    json_schema = {"type": "date", "format": "date", "description": "Datetime to the field."}
+    json_schema = {
+        "type": "string",
+        "format": "date-time",  # yoki agar sana bo‘lsa "date"
+        "description": "Datetime to the field."
+    }
     validate_type = 'response'
     format = None
 
