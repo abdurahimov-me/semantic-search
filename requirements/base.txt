@@ -21,3 +21,4 @@ grpcio
 grpcio-tools
 mypy-protobuf
 pillow
+invoke
