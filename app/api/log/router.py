@@ -21,7 +21,7 @@ async def get_logs(
 
 
 @router.get(
-    '/models',
+    '/models/',
 )
 async def get_logs(
 ):
@@ -29,7 +29,7 @@ async def get_logs(
 
 
 @router.get(
-    '/actions',
+    '/actions/',
 )
 async def get_logs(
 ):
@@ -37,7 +37,7 @@ async def get_logs(
 
 
 @router.get(
-    '/users',
+    '/users/',
     response_model=Page[schemas.LogSchema]
 )
 async def get_logs(
