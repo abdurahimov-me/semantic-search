@@ -9,7 +9,7 @@ from resources.enums import LogModel, LogAction
 class LogFilter(Filter):
     model: Optional[LogModel] = None
     action: Optional[LogAction] = None
-    instance_id: Optional[str] = None
+    executor_id: Optional[str] = None
 
 
     class Constants(Filter.Constants):
