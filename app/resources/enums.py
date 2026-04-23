@@ -2,10 +2,17 @@ from utils.customs import IntEnum
 
 
 class LogModel(IntEnum):
-    ORDER = 1, "Buyurtmalar"
-    USER = 2, "Foydalanuvchilar"
-    CLIENT = 3, "Klientlar"
-    OFFER = 5, "Takliflar"
+    ORDER = 1, "Order"
+    USER = 2, "User"
+    CLIENT = 3, "Client"
+    OFFER = 5, "Offre"
+    DemurrageFee = 6, "Demurrage fee"
+    INVOICE = 7, "Invoice"
+    ORDER_CHECK = 8, "Order check"
+    EXTRA_CASH_FLOW = 9, "Extra cash flow"
+    AGENT_CASH_FLOW = 10, "Agent cash flow"
+    UN_LOADING_POINT = 11, "Un loading point"
+    LOADING_POINT = 12, "Loading point"
 
 
 class LogAction(IntEnum):
