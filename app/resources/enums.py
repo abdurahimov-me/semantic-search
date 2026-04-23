@@ -5,7 +5,7 @@ class LogModel(IntEnum):
     ORDER = 1, "Order"
     USER = 2, "User"
     CLIENT = 3, "Client"
-    OFFER = 5, "Offre"
+    OFFER = 5, "Offer"
     DemurrageFee = 6, "Demurrage fee"
     INVOICE = 7, "Invoice"
     ORDER_CHECK = 8, "Order check"
