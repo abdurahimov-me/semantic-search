@@ -10,6 +10,7 @@ class LogFilter(Filter):
     model: Optional[LogModel] = None
     action: Optional[LogAction] = None
     executor_id: Optional[str] = None
+    search: Optional[str] = None
 
 
     class Constants(Filter.Constants):
