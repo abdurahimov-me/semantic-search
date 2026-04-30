@@ -13,6 +13,7 @@ class LogModel(IntEnum):
     AGENT_CASH_FLOW = 10, "Agent cash flow"
     UN_LOADING_POINT = 11, "Un loading point"
     LOADING_POINT = 12, "Loading point"
+    CONTRACT = 13, "Contract"
 
 
 class LogAction(IntEnum):
