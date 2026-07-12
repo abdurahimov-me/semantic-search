@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:15
     container_name: ${PROJECT_NAME}_db
-    restart: always
+    restart: unless-stopped
     networks:
       - local
     env_file:
@@ -21,7 +21,7 @@ services:
     container_name: ${PROJECT_NAME}_pgbouncer
     networks:
       - local
-    restart: always
+    restart: unless-stopped
     expose:
       - "6432"
     env_file:
@@ -52,6 +52,7 @@ services:
       dockerfile: ./docker/Dockerfile
     container_name: ${PROJECT_NAME}_app
     entrypoint: /scripts/entrypoint.sh
+    restart: unless-stopped
     volumes:
       - ./app/logs:/var/log/app
     networks:
@@ -73,6 +74,7 @@ services:
       dockerfile: Dockerfile
     container_name: ${PROJECT_NAME}_admin
     entrypoint: ./admin/entrypoint.sh
+    restart: unless-stopped
     networks:
       - local
     ports:
