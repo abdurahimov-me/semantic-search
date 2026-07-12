@@ -1,6 +1,6 @@
 django
 psycopg2-binary
-python-environ
+django-environ
 django-jazzmin
 requests
 python-dotenv
