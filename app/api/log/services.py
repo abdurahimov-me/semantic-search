@@ -24,9 +24,7 @@ class LogService(BaseHTTPService):
 
         stmt = log_filter.filter(stmt).order_by(Log.id.desc())
 
-        data = await apaginate(self.db, stmt, unique=False)
-        return data
-
+        return await apaginate(self.db, stmt, unique=False)
 
     async def get_users(self):
         stmt = (
