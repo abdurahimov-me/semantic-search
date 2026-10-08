@@ -6,8 +6,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_pagination import add_pagination
-from fastapi_pagination.utils import disable_installed_extensions_check
 from starlette.staticfiles import StaticFiles
 
 from api.routers import __routes__ as api_routes, __ws_routes__ as ws_routes
@@ -25,7 +23,6 @@ class Server:
         self.__register_middlewares(app)
         self.__register_media_files(app)
         self.__register_static_files(app)
-        self.__register_pagination(app)
 
     def get_app(self):
         return self.__app
@@ -70,11 +67,6 @@ class Server:
             StaticFiles(directory=f"{APP_SETTINGS.STATIC_DIR}", check_dir=False),
             name="static",
         )
-
-    @staticmethod
-    def __register_pagination(app: FastAPI):
-        add_pagination(app)
-        disable_installed_extensions_check()
 
 
 

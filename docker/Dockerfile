@@ -7,8 +7,6 @@ WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        libpq-dev \
-        postgresql-client \
         curl \
         supervisor && \
     rm -rf /var/lib/apt/lists/*
@@ -20,7 +18,6 @@ COPY ./app /app
 COPY ./scripts /scripts
 
 EXPOSE 8000
-EXPOSE 50051
 
 RUN chmod +x /scripts/*
 RUN mkdir -p /var/log/app /var/log/supervisor

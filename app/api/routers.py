@@ -1,10 +1,7 @@
 from utils.routes import Routes
-from .log.router import router
 
 __routes__ = Routes(
-    routers=(
-        router,
-    )
+    routers=()
 )
 
 __ws_routes__ = Routes(
