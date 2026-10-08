@@ -1,3 +1,0 @@
-[submodule "app/resources/integrations/grpc/proto"]
-	path = app/resources/integrations/grpc/proto
-	url = https://github.com/IMB-TECH-Logistics/logistics-grpc-proto.git
