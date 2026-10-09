@@ -39,11 +39,19 @@ class APPSettings(EnvReader):
     SERVER_HOST: str = 'localhost'
     ROOT_PATH: str = ''
     DEBUG: bool = True
+    EMBEDDING_MODEL_NAME: str = 'Qwen/Qwen3-Embedding-0.6B'
+    EMBEDDING_DEVICE: t.Optional[str] = None
+    EMBEDDING_SIZE: int = 1024
+    EMBEDDING_BATCH_SIZE: int = 8
+    DOCUMENTS_COLLECTION_NAME: str = 'semantic_documents'
+    MAX_TEXT_LENGTH: int = 4000
+    MAX_BATCH_SIZE: int = 100
+    DEFAULT_SEARCH_LIMIT: int = 10
 
 
 class JWTSettings(BaseSettings):
     ALGORITHM: str = "HS256"
-    JWT_SECRET_KEY: str
+    JWT_SECRET_KEY: str = 'local-development-secret'
     JWT_PAYLOAD_FIELDS: tuple = ('id',)
     ACCESS_TOKEN_EXPIRE: timedelta = timedelta(days=10)
 

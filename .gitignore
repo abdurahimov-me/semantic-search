@@ -380,3 +380,5 @@ Temporary Items
 celerybeat-schedule.db
 postgres/
 dump.sql
+frontend/node_modules/
+frontend/dist/

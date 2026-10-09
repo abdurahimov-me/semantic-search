@@ -18,8 +18,6 @@ services:
     image: qdrant/qdrant:latest
     container_name: ${CONTAINER_PREFIX:-semantic_search}_qdrant
     restart: unless-stopped
-    env_file:
-      - .env
     networks:
       - local
     volumes:
@@ -37,7 +35,11 @@ services:
     ports:
       - "${APP_BIND_IP:-127.0.0.1}:${APP_PORT:-8080}:8000"
     env_file:
-      - .env
+      - path: .env.example
+      - path: .env
+        required: false
+    volumes:
+      - qwen_model_cache:/root/.cache/huggingface
     depends_on:
       redis:
         condition: service_healthy
@@ -49,13 +51,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 20s
+      start_period: 5m
 
 
 
 volumes:
   redis_data: { }
   qdrant_data: { }
+  qwen_model_cache: { }
 
 
 networks:
