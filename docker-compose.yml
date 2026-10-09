@@ -1,7 +1,7 @@
 services:
   redis:
     image: redis:7-alpine
-    container_name: ${CONTAINER_PREFIX:-face_detection}_redis
+    container_name: ${CONTAINER_PREFIX:-semantic_search}_redis
     restart: unless-stopped
     networks:
       - local
@@ -16,7 +16,7 @@ services:
 
   qdrant:
     image: qdrant/qdrant:latest
-    container_name: ${CONTAINER_PREFIX:-face_detection}_qdrant
+    container_name: ${CONTAINER_PREFIX:-semantic_search}_qdrant
     restart: unless-stopped
     env_file:
       - .env
@@ -29,8 +29,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    container_name: ${CONTAINER_PREFIX:-face_detection}_app
-    image: ${CONTAINER_PREFIX:-face_detection}_app_image:latest
+    container_name: ${CONTAINER_PREFIX:-semantic_search}_app
+    image: ${CONTAINER_PREFIX:-semantic_search}_app_image:latest
     entrypoint: /scripts/entrypoint.sh
     networks:
       - local
@@ -38,9 +38,6 @@ services:
       - "${APP_BIND_IP:-127.0.0.1}:${APP_PORT:-8080}:8000"
     env_file:
       - .env
-    volumes:
-      - insightface_data:/root/.insightface
-      - face_images:/app/media/faces
     depends_on:
       redis:
         condition: service_healthy
@@ -59,8 +56,6 @@ services:
 volumes:
   redis_data: { }
   qdrant_data: { }
-  insightface_data: { }
-  face_images: { }
 
 
 networks:
