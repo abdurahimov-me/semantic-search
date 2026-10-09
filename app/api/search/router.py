@@ -3,7 +3,6 @@ from fastapi import APIRouter
 from .schemas import SearchRequest, SearchResponse
 from .services import semantic_search
 
-
 router = APIRouter(prefix='/search', tags=['Search'])
 
 

@@ -9,9 +9,8 @@ __all__ = (
 import os
 import typing as t
 from datetime import timedelta
-from pathlib import Path
-
 from dotenv import load_dotenv
+from pathlib import Path
 from pydantic import Field
 from pydantic_settings import BaseSettings
 
@@ -66,6 +65,7 @@ class QdrantSettings(EnvReader):
     TIMEOUT: float = Field(default=5.0, gt=0)
     CONNECT_RETRIES: int = Field(default=30, ge=1)
     RETRY_DELAY: float = Field(default=1.0, ge=0)
+
 
 JWT_SETTINGS = JWTSettings()
 APP_SETTINGS = APPSettings()

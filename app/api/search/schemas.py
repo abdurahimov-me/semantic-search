@@ -1,9 +1,7 @@
+from pydantic import BaseModel, Field, StringConstraints
 from typing import Annotated
 
-from pydantic import BaseModel, Field, StringConstraints
-
 from config import APP_SETTINGS
-
 
 SearchText = Annotated[
     str,

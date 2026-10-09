@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import typing as t
-
 from qdrant_client import AsyncQdrantClient, models
 
 from config import APP_SETTINGS
@@ -23,8 +22,8 @@ class DocumentsRepository(BaseRepository):
         )
 
     async def add_many(
-        self,
-        documents: t.Sequence[t.Tuple[str, t.List[float], t.Dict[str, t.Any]]],
+            self,
+            documents: t.Sequence[t.Tuple[str, t.List[float], t.Dict[str, t.Any]]],
     ) -> models.UpdateResult | None:
         points = [
             models.PointStruct(id=point_id, vector=vector, payload=payload)
@@ -42,11 +41,11 @@ class DocumentsRepository(BaseRepository):
                 return points
 
     async def find_similar(
-        self,
-        vector: t.List[float],
-        *,
-        limit: int,
-        score_threshold: float | None = None,
+            self,
+            vector: t.List[float],
+            *,
+            limit: int,
+            score_threshold: float | None = None,
     ) -> t.List[models.ScoredPoint]:
         return await self.search(
             vector,

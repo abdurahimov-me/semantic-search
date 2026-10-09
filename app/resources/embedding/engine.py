@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import asyncio
 import typing as t
-
 from sentence_transformers import SentenceTransformer
 
 from config import APP_SETTINGS
@@ -40,10 +39,10 @@ class EmbeddingEngine:
         return vectors[0]
 
     async def _encode(
-        self,
-        texts: t.Sequence[str],
-        *,
-        prompt_name: str | None = None,
+            self,
+            texts: t.Sequence[str],
+            *,
+            prompt_name: str | None = None,
     ) -> t.List[t.List[float]]:
         async with self._encode_lock:
             vectors = await asyncio.to_thread(

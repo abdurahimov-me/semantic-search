@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Response, status
 
-from .schemas import Document, DocumentsBatchCreate, DocumentsBatchResult, DocumentsList
+from .schemas import DocumentsBatchCreate, DocumentsBatchResult, DocumentsList
 from .services import add_documents, delete_document, list_documents
-
 
 router = APIRouter(prefix='/documents', tags=['Documents'])
 

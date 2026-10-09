@@ -3,7 +3,6 @@ from __future__ import annotations
 import typing as t
 from qdrant_client import AsyncQdrantClient, models
 
-
 PointId = int | str
 Vector = t.List[float] | t.Dict[str, t.List[float]]
 
@@ -20,8 +19,8 @@ class BaseRepository:
         return await self.qdrant_client.collection_exists(self.collection_name)
 
     async def create_collection(
-        self,
-        vectors_config: models.VectorParams | t.Dict[str, models.VectorParams],
+            self,
+            vectors_config: models.VectorParams | t.Dict[str, models.VectorParams],
     ) -> bool:
         if await self.collection_exists():
             return False
@@ -45,7 +44,7 @@ class BaseRepository:
         return records[0] if records else None
 
     async def get_many(
-        self, point_ids: t.Sequence[PointId], *, with_vectors: bool = False
+            self, point_ids: t.Sequence[PointId], *, with_vectors: bool = False
     ) -> t.List[models.Record]:
         if not point_ids:
             return []
@@ -57,12 +56,12 @@ class BaseRepository:
         )
 
     async def list(
-        self,
-        *,
-        limit: int = 100,
-        offset: PointId | None = None,
-        query_filter: models.Filter | None = None,
-        with_vectors: bool = False,
+            self,
+            *,
+            limit: int = 100,
+            offset: PointId | None = None,
+            query_filter: models.Filter | None = None,
+            with_vectors: bool = False,
     ) -> t.Tuple[t.List[models.Record], PointId | None]:
         if limit < 1:
             raise ValueError('limit must be positive')
@@ -76,7 +75,7 @@ class BaseRepository:
         )
 
     async def create(
-        self, point_id: PointId, vector: Vector, payload: t.Dict[str, t.Any] | None = None
+            self, point_id: PointId, vector: Vector, payload: t.Dict[str, t.Any] | None = None
     ) -> models.UpdateResult:
         if await self.get(point_id) is not None:
             raise ValueError(f'Point already exists: {point_id}')
@@ -88,7 +87,7 @@ class BaseRepository:
         )
 
     async def upsert(
-        self, point_id: PointId, vector: Vector, payload: t.Dict[str, t.Any] | None = None
+            self, point_id: PointId, vector: Vector, payload: t.Dict[str, t.Any] | None = None
     ) -> models.UpdateResult:
         return await self.qdrant_client.upsert(
             collection_name=self.collection_name,
@@ -104,11 +103,11 @@ class BaseRepository:
         )
 
     async def update(
-        self,
-        point_id: PointId,
-        *,
-        vector: Vector | None = None,
-        payload: t.Dict[str, t.Any] | None = None,
+            self,
+            point_id: PointId,
+            *,
+            vector: Vector | None = None,
+            payload: t.Dict[str, t.Any] | None = None,
     ) -> models.UpdateResult:
         if vector is None and payload is None:
             raise ValueError('vector or payload is required')
@@ -137,13 +136,13 @@ class BaseRepository:
         return True
 
     async def search(
-        self,
-        vector: t.List[float],
-        *,
-        limit: int = 10,
-        score_threshold: float | None = None,
-        query_filter: models.Filter | None = None,
-        with_vectors: bool = False,
+            self,
+            vector: t.List[float],
+            *,
+            limit: int = 10,
+            score_threshold: float | None = None,
+            query_filter: models.Filter | None = None,
+            with_vectors: bool = False,
     ) -> t.List[models.ScoredPoint]:
         if limit < 1:
             raise ValueError('limit must be positive')
@@ -159,13 +158,13 @@ class BaseRepository:
         return result.points
 
     async def search_batch(
-        self,
-        vectors: t.Sequence[t.List[float]],
-        *,
-        limit: int = 10,
-        score_threshold: float | None = None,
-        query_filter: models.Filter | None = None,
-        with_vectors: bool = False,
+            self,
+            vectors: t.Sequence[t.List[float]],
+            *,
+            limit: int = 10,
+            score_threshold: float | None = None,
+            query_filter: models.Filter | None = None,
+            with_vectors: bool = False,
     ) -> t.List[t.List[models.ScoredPoint]]:
         if not vectors:
             return []

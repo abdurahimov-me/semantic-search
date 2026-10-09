@@ -1,10 +1,8 @@
 from datetime import datetime
+from pydantic import BaseModel, Field, StringConstraints, field_validator
 from typing import Annotated
 
-from pydantic import BaseModel, Field, StringConstraints, field_validator
-
 from config import APP_SETTINGS
-
 
 TextValue = Annotated[
     str,

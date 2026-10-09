@@ -1,6 +1,6 @@
-from utils.routes import Routes
 from api.documents.router import router as documents_router
 from api.search.router import router as search_router
+from utils.routes import Routes
 
 __routes__ = Routes(
     routers=(

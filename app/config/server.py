@@ -3,10 +3,9 @@ __all__ = (
 )
 
 from contextlib import asynccontextmanager
-from pathlib import Path
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pathlib import Path
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.staticfiles import StaticFiles
 
@@ -95,6 +94,3 @@ class Server:
                 SPAStaticFiles(directory=frontend_dir, html=True),
                 name='frontend',
             )
-
-
-

@@ -1,5 +1,4 @@
 import asyncio
-
 from fastapi import FastAPI
 
 from config.qdrant import qdrant_db

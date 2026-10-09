@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import typing as t
-
 from qdrant_client import AsyncQdrantClient
 
 from config import QDRANT_SETTINGS
