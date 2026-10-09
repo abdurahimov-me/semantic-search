@@ -24,7 +24,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 COPY requirements requirements/
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements/prod.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu && \
+    pip install --no-cache-dir -r requirements/prod.txt
 
 COPY ./app /app
 COPY ./scripts /scripts
