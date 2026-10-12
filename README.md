@@ -54,6 +54,24 @@ Javob: `status: ok`. Keyin quyidagilarni oching:
 
 Barcha asosiy endpointlar `/api/v1` prefiksidan foydalanadi. Quyidagi PowerShell misollarida standart `8080` porti ishlatilgan.
 
+| Metod va manzil | Vazifasi | Muvaffaqiyatli status |
+| --- | --- | --- |
+| `GET /api/health` | App ishlayotganini tekshiradi | `200` |
+| `POST /api/v1/documents/batch` | Matnlarni vektorga aylantirib Qdrant'ga saqlaydi | `201` |
+| `GET /api/v1/documents` | Barcha saqlangan matnlarni qaytaradi | `200` |
+| `POST /api/v1/search` | So‘rovga ma’nosi eng yaqin matnlarni topadi | `200` |
+| `DELETE /api/v1/documents/{document_id}` | ID bo‘yicha bitta matnni o‘chiradi | `204` |
+
+Misollardagi ID, vaqt va moslik ballari namuna qiymatlardir; haqiqiy javobda ular boshqacha bo‘ladi. API hozir autentifikatsiya talab qilmaydi.
+
+### App holatini tekshirish
+
+`GET /api/health` Qdrant yoki model holati haqida batafsil ma’lumot bermaydi; app so‘rovga javob bera olayotganini bildiradi.
+
+```json
+{"status":"ok"}
+```
+
 ### Matn qo‘shish
 
 ```powershell
@@ -70,7 +88,27 @@ Invoke-RestMethod -Method Post `
   -Body $body
 ```
 
-`201 Created` javobida `added` soni va har bir yangi yozuvning `id`, `text`, `created_at` maydonlari keladi. O‘chirish uchun kerak bo‘ladigan `id` ni shu javobdan yoki ro‘yxatdan oling.
+So‘rovdagi har bir matnning ortiqcha bosh va oxirgi bo‘sh joylari olib tashlanadi. App unga UUID yaratadi, model yordamida vektor hisoblaydi va matn hamda yaratilgan vaqtni Qdrant'ga yozadi. `201 Created` javobiga misol:
+
+```json
+{
+  "added": 2,
+  "items": [
+    {
+      "id": "d786c71e-0926-44bd-9d99-8e6dc33cbdd4",
+      "text": "Yetkazib berish Toshkent bo‘ylab 2 kun davom etadi.",
+      "created_at": "2026-10-12T08:30:00Z"
+    },
+    {
+      "id": "7eea6db6-7e05-4f4a-bdf8-c44686388061",
+      "text": "Buyurtma holatini shaxsiy kabinetda tekshirish mumkin.",
+      "created_at": "2026-10-12T08:30:00Z"
+    }
+  ]
+}
+```
+
+`added` — shu so‘rovda saqlangan matnlar soni. `id` yozuvni o‘chirishda ishlatiladi; `created_at` UTC vaqtidir. Javobda vektorning o‘zi qaytarilmaydi.
 
 ### Matnlar ro‘yxatini olish
 
@@ -78,7 +116,22 @@ Invoke-RestMethod -Method Post `
 Invoke-RestMethod 'http://127.0.0.1:8080/api/v1/documents'
 ```
 
-Javob `total` va `items` maydonlaridan iborat. Yozuvlar yaratilgan vaqti bo‘yicha yangidan eskiga saralanadi.
+App Qdrant kolleksiyasidagi barcha yozuvlarni olib, yaratilgan vaqti bo‘yicha yangidan eskiga saralaydi. `200 OK` javobiga misol:
+
+```json
+{
+  "total": 1,
+  "items": [
+    {
+      "id": "d786c71e-0926-44bd-9d99-8e6dc33cbdd4",
+      "text": "Yetkazib berish Toshkent bo‘ylab 2 kun davom etadi.",
+      "created_at": "2026-10-12T08:30:00Z"
+    }
+  ]
+}
+```
+
+`total` — qaytarilgan yozuvlar soni. Bazada matn bo‘lmasa `{"total":0,"items":[]}` qaytadi. Hozir bu endpointda sahifalash yo‘q.
 
 ### Qidirish
 
@@ -95,7 +148,26 @@ Invoke-RestMethod -Method Post `
   -Body $body
 ```
 
-`limit` ko‘rsatilmasa standart qiymat `10`; ruxsat etilgan oraliq `1–50`. `score_threshold` ixtiyoriy, `-1` dan `1` gacha bo‘lishi mumkin. Javobdagi `query` qidiruv matni, `total` topilgan natijalar soni, `results` esa `id`, `text`, `score`, `score_percent` maydonlariga ega mos yozuvlar ro‘yxatidir. `score_percent` qiymati `score` ni `0–1` oralig‘iga keltirib, 100 ga ko‘paytirish orqali hisoblanadi.
+App qidiruv matnini modelning `query` rejimida vektorga aylantiradi. Qdrant saqlangan matnlarni cosine o‘xshashlik bo‘yicha qidirib, eng moslarini birinchi qaytaradi. `limit` ko‘rsatilmasa `.env` dagi `DEFAULT_SEARCH_LIMIT` ishlatiladi (`10`); ruxsat etilgan oraliq `1–50`. `score_threshold` ixtiyoriy, `-1` dan `1` gacha: berilsa, undan past ball olgan natijalar chiqarilmaydi.
+
+`200 OK` javobiga misol:
+
+```json
+{
+  "query": "Buyurtmam qachon yetib keladi?",
+  "total": 1,
+  "results": [
+    {
+      "id": "d786c71e-0926-44bd-9d99-8e6dc33cbdd4",
+      "text": "Yetkazib berish Toshkent bo‘ylab 2 kun davom etadi.",
+      "score": 0.82,
+      "score_percent": 82.0
+    }
+  ]
+}
+```
+
+`query` — yuborilgan qidiruv matni, `total` — qaytarilgan natijalar soni. `score` — Qdrant o‘xshashlik balli. `score_percent` shu ballni `0–1` oralig‘iga keltirib, 100 ga ko‘paytirish orqali hisoblanadi; bu aniq javob ehtimoli emas. Hech narsa topilmasa `results: []` va `total: 0` qaytadi. Frontend hozir `limit: 10` ni aniq yuboradi, shuning uchun `DEFAULT_SEARCH_LIMIT` o‘zgarishi unga ta’sir qilmaydi.
 
 ### Matnni o‘chirish
 
@@ -104,14 +176,18 @@ $documentId = 'BU_YERGA_YOZUV_ID_SINI_QOYING'
 Invoke-RestMethod -Method Delete "http://127.0.0.1:8080/api/v1/documents/$documentId"
 ```
 
-Muvaffaqiyatli o‘chirish `204 No Content`, topilmagan ID esa `404` qaytaradi.
+App avval ID mavjudligini tekshiradi, so‘ng yozuvni Qdrant'dan o‘chiradi. Muvaffaqiyatli javob `204 No Content`: javob tanasi bo‘lmaydi. ID topilmasa `404 Not Found` va quyidagi JSON qaytadi:
+
+```json
+{"detail":"Matn topilmadi"}
+```
 
 ### Kiritish cheklovlari
 
 - Har bir matn bo‘sh bo‘lmasligi va bo‘sh joylar olib tashlangandan keyin ko‘pi bilan `4000` belgidan iborat bo‘lishi kerak.
 - Bitta `/documents/batch` so‘rovida `1–100` ta matn qabul qilinadi. Bir batch ichida bir xil matnni katta-kichik harfni hisobga olmasdan takrorlash mumkin emas.
 - Qidiruv matni ham `1–4000` belgi bo‘lishi kerak.
-- Noto‘g‘ri so‘rovlar FastAPI validatsiya javobi `422` bilan qaytadi.
+- Noto‘g‘ri so‘rovlar `422 Unprocessable Entity` bilan qaytadi. Javobning `detail` massivida xato joyi (`loc`) va sababi (`msg`) ko‘rsatiladi. Masalan, `limit` qiymati `0` bo‘lsa, `loc` ichida `body` va `limit`, `msg` ichida kamida `1` bo‘lishi kerakligi ko‘rsatiladi.
 
 ## Sozlamalar
 
