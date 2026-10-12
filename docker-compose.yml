@@ -1,19 +1,4 @@
 services:
-  redis:
-    image: redis:7-alpine
-    container_name: ${CONTAINER_PREFIX:-semantic_search}_redis
-    restart: unless-stopped
-    networks:
-      - local
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-
   qdrant:
     image: qdrant/qdrant:latest
     container_name: ${CONTAINER_PREFIX:-semantic_search}_qdrant
@@ -41,8 +26,6 @@ services:
     volumes:
       - qwen_model_cache:/root/.cache/huggingface
     depends_on:
-      redis:
-        condition: service_healthy
       qdrant:
         condition: service_started
     restart: unless-stopped
@@ -56,7 +39,6 @@ services:
 
 
 volumes:
-  redis_data: { }
   qdrant_data: { }
   qwen_model_cache: { }
 

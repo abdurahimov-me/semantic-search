@@ -2,8 +2,6 @@ fastapi[standard]
 pydantic
 pydantic-settings
 pyjwt
-redis
-hiredis
 qdrant-client
 sentence-transformers>=2.7.0
 transformers>=4.51.0
